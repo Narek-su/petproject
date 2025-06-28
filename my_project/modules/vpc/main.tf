@@ -3,7 +3,7 @@ resource "aws_vpc" "vpc" {
   instance_tenancy = "default"
 
   tags = merge(
-    local.common_tags,
+    var.tags,
     {
       Name = var.vpc_name
     }
@@ -17,16 +17,21 @@ resource "aws_subnet" "public_subnet" {
   availability_zone       = local.azs[count.index]
   map_public_ip_on_launch = true
 
-  tags = local.common_tags
+  tags = merge(
+    var.tags,
+    {
+      Name = var.public_subnet_name
+    }
+  )
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
 
   tags = merge(
-    local.common_tags,
+    var.tags,
     {
-      Name = var.igw
+      Name = var.igw_name
     }
   )
 }
@@ -42,11 +47,10 @@ resource "aws_route_table" "public_rt" {
 
   }
 
-
   tags = merge(
-    local.common_tags,
+    var.tags,
     {
-      Name = var.public_rt
+      Name = var.public_rt_name
     }
   )
 }

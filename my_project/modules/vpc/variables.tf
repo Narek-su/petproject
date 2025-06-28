@@ -1,44 +1,31 @@
 variable "vpc_name" {
-  type    = string
-  default = "my_vpc_aws"
+  type = string
 }
 
 variable "vpc_cidr" {
-  type    = string
-  default = "10.0.0.0/16"
+  type = string
 }
 
-
-variable "public_subnet" {
-  type    = string
-  default = "public_subnet_aws"
+variable "public_subnet_name" {
+  type = string
 }
-
 
 variable "subnet_count" {
-  type    = list(any)
-  default = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  type = list(any)
 }
 
-variable "public_rt" {
-  type    = string
-  default = "public_rt_aws"
+variable "public_rt_name" {
+  type = string
 }
 
+variable "tags" {
+  type = map(string)
+}
+
+variable "igw_name" {
+  type = string
+}
 
 locals {
   azs = data.aws_availability_zones.available.names
-}
-
-locals {
-  common_tags = {
-    env = "prod"
-    by  = "terraform"
-  }
-}
-
-
-variable "igw" {
-  type    = string
-  default = "my_igw_aws"
 }
