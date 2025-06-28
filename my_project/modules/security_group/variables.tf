@@ -4,18 +4,28 @@ variable "vpc_id" {
 
 variable "inbound_rule_keys" {
   type = list(string)
+  #   default = ["ssh", "http", "https"] // how to use it
 }
 
 variable "override_cidrs" {
   type = map(list(string))
+  #   default = {                        // how to use it
+  #   ssh   = ["0.0.0.0/0"]
+  #   http  = ["0.0.0.0/0"]
+  #   https = ["0.0.0.0/0"]
+  # }
 }
 
 variable "outbound_rule_keys" {
   type = list(string)
+  #   default = ["all_traffic"]          // how to use it
 }
 
 variable "outbound_override_cidrs" {
   type = map(list(string))
+    #   default = {                      // how to use it
+    #   all_traffic = ["0.0.0.0/0"]
+    # }
 }
 
 variable "sg_name" {
