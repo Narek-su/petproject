@@ -2,7 +2,7 @@ variable "vpc_id" {
   type = string
 }
 
-variable "subnets" {
+variable "subnet" {
   type = list(string)
 }
 
@@ -35,7 +35,7 @@ variable "vpc_cidr" {
   type = string
 }
 
-#-------------------------------------------common tags-----------------------------------------------------#
+#--------------------------------------------- tags---------------------------------------------------------#
 variable "tags" {
   type = map(string)
 }
