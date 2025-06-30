@@ -1,27 +1,19 @@
 locals {
-  common_tags = {
-    env = "prod"
-    by  = "terraform"
-  }
-}
-
-locals {
   selected_inbound_rules = {
-    for key in var.inbound_rule_keys : key => merge(
-      var.inbound_rules[key],
+    for rule_key in var.inbound_rule_keys : rule_key => merge(
+      var.inbound_rules[rule_key],
       {
-        cidr = lookup(var.override_cidrs, key, var.inbound_rules[key].cidr)
+        cidr         = try(var.override_cidrs[rule_key], var.inbound_rules[rule_key].cidr)
+        source_sg_id = try(var.override_source_sg_ids[rule_key], null)
       }
     )
   }
-}
 
-locals {
   selected_outbound_rules = {
-    for key in var.outbound_rule_keys : key => merge(
-      var.outbound_rules[key],
+    for rule_key in var.outbound_rule_keys : rule_key => merge(
+      var.outbound_rules[rule_key],
       {
-        cidr = lookup(var.outbound_override_cidrs, key, var.outbound_rules[key].cidr)
+        cidr = try(var.outbound_override_cidrs[rule_key], var.outbound_rules[rule_key].cidr)
       }
     )
   }

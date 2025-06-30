@@ -23,10 +23,18 @@ variable "outbound_rule_keys" {
 
 variable "outbound_override_cidrs" {
   type = map(list(string))
-    #   default = {                      // how to use it
-    #   all_traffic = ["0.0.0.0/0"]
-    # }
+  #   default = {                        // how to use it
+  #   all_traffic = ["0.0.0.0/0"]
+  # }
 }
+
+variable "override_source_sg_ids" {
+  type = map(string)
+  # {
+  #   http = module.alb_sg.sg_id         // how to use it
+  # }
+}
+
 
 variable "sg_name" {
   type = string
