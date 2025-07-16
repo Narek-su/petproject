@@ -68,6 +68,8 @@ module "launch_template_instance_asg" {
 
   launch_template_name = var.launch_template_name
   instance_name        = var.instance_name
+  user_data_file  = "${path.root}/install_nginx.sh"
+
   tags                 = local.common_tags
 
   security_group_id = module.ec2_sg.sg_id
@@ -77,5 +79,6 @@ module "launch_template_instance_asg" {
   asg_name         = var.asg_name
   scaling_size     = var.scaling_size
   target_group_arn = [module.alb.target_group_arn]
+  ami_id           = var.ami_id
 
 }
